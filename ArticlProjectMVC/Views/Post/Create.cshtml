@@ -1,0 +1,72 @@
+﻿@model ArticlProjectMVC.ViewModel.PostViewModel.PostView
+@inject ArticlProjectMVC.Core.IReposetory.IBaseReop<ArticlProjectMVC.Core.Models.Category> datahelper
+@{
+    ViewData["Title"] = "إنشاء";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1 style="font-family:Cairo">انشاء منشور جديد</h1>
+
+<h4 style ="font-family:Cairo">
+    معلومات المشاركة</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+            <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           @* <div class="form-group">
+                <input asp-for="UserId" type="hidden" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="UserName" type="hidden" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="FullName" type="hidden" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="PostCategory" class="control-label"></label>
+                <select asp-for="PostCategory" asp-items="new SelectList(datahelper.GetAllData().Select(x=>x.Name))" class="form-control"></select>
+                <span asp-validation-for="PostCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostTitle" class="control-label"></label>
+                <input asp-for="PostTitle" class="form-control" />
+                <span asp-validation-for="PostTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostDescription" class="control-label"></label>
+                <textarea asp-for="PostDescription" class="form-control"></textarea>
+                <span asp-validation-for="PostDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostImageUrl" class="control-label"></label>
+                <input asp-for="PostImageUrl" type="file" class="form-control" />
+                <span asp-validation-for="PostImageUrl" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <input asp-for=@DateTime.Now class="form-control" />
+                <span asp-validation-for="AddedDate" class="text-danger"></span>
+            </div>*@
+            @*<div class="form-group">
+                <select asp-for="AuthorId" typeof="hidden" class ="form-control" asp-items="ViewBag.AuthorId"></select>
+            </div>
+            <div class="form-group">
+                <select asp-for="CategoryId" typeof="hidden" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
